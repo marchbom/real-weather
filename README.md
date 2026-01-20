@@ -3,6 +3,10 @@
 실시간 날씨 정보를 제공하는 React 기반 웹 애플리케이션입니다.  
 현재 위치의 날씨와 즐겨찾기한 위치의 날씨를 한눈에 확인할 수 있습니다.
 
+| 현재 위치 날씨 | 즐겨찾기 |
+|:--:|:--:|
+| <img width="280" alt="현재 위치 날씨" src="https://github.com/user-attachments/assets/10a9cc81-74b0-4873-889a-b10932eab07c" /> | <img width="280" alt="즐겨찾기" src="https://github.com/user-attachments/assets/f583d554-2acb-4706-a6a7-b5595286fc12" /> |
+
 ## 프로젝트 개요
 
 - **기술 스택**: React 19, TypeScript, Vite
@@ -11,6 +15,34 @@
 - **상태 관리**: Zustand, TanStack Query
 - **애니메이션**: Framer Motion
 - **날씨 API**: OpenWeatherMap API
+
+---
+
+## 실행 방법
+
+### 1) 프로젝트 클론
+```bash
+git clone https://github.com/marchbom/real-weather.git
+cd real-weather
+```
+### 2) 패키지 설치
+```
+npm install
+```
+
+### 3) 환경 변수 설정
+프로젝트 루트에 .env 파일 생성 후 아래 값을 복사해 입력합니다.
+```
+VITE_OPENWEATHER_API_KEY=
+VITE_KAKAO_REST_API_KEY=
+```
+> API Key 값은 보안을 위해 레포에 포함하지 않았으며, 메일로 별도 전달드립니다.
+
+
+### 4) 실행
+```
+npm run dev
+```
 
 ## 주요 기능
 
@@ -128,7 +160,7 @@ src/
 
 ## 주요 화면
 
-### 메인 화면 (** 위치 정보를 허용해야 합니다.)
+### 메인 화면 (위치 정보를 허용해야 합니다.)
 - 현재 위치 기반의 날씨 정보
 - 시간대별 날씨 (가로 스크롤)
 - 7일간 일기예보
