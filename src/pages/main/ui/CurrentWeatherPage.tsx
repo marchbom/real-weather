@@ -1,7 +1,8 @@
 import { ERROR_MESSAGES } from "@/shared/constants/errorMessage";
 import { getCurrentCoords } from "@/entities/location/lib/getCurrentCoords";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import WeatherDetailPage from "@/pages/weather-detail/ui/WeatherDetailPage";
+import CurrentWeatherSkeleton from "./CurrentWeatherSkeleton";
 
 export default function CurrentWeatherPage() {
   const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(
@@ -24,7 +25,14 @@ export default function CurrentWeatherPage() {
     run();
   }, []);
 
-  if (!coords) return <div className="text-white">위치 불러오는 중...</div>;
+  if (!coords) return null;
 
-  return <WeatherDetailPage coords={coords} />;
+  return (
+    <Suspense fallback={<CurrentWeatherSkeleton />}>
+      <WeatherDetailPage coords={coords} />
+    </Suspense>
+
+
+  )
+  
 }

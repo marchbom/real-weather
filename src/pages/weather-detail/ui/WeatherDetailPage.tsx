@@ -14,7 +14,7 @@ import { useLocation } from "react-router";
 
 type Coords = { lat: number; lon: number };
 
-type Props = {
+interface Props {
   coords: Coords;
   locationName?: string;
 };
