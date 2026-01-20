@@ -1,7 +1,8 @@
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router";
+import { memo } from "react";
 
-export function BackButton() {
+export const BackButton = memo(function BackButton() {
   const navigate = useNavigate();
 
   // 뒤로가기
@@ -18,4 +19,4 @@ export function BackButton() {
       </button>
     </>
   );
-}
+});

@@ -11,10 +11,10 @@ export function getCurrentCoords(): Promise<Coords> {
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        resolve({
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
-        });
+        // 소수점 4자리로 반올림 (약 11m 정확도)
+        const lat = Math.round(pos.coords.latitude * 10000) / 10000;
+        const lon = Math.round(pos.coords.longitude * 10000) / 10000;
+        resolve({ lat, lon });
       },
       (err) => {
         console.error(ERROR_MESSAGES.LOCATION.GEOLOCATION_ERROR, err.code, err.message);
@@ -23,7 +23,7 @@ export function getCurrentCoords(): Promise<Coords> {
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 60_000,
+        maximumAge: 0, // 캐시 사용 안 함 - 항상 최신 위치
       },
     );
   });

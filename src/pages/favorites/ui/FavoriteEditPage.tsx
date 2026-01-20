@@ -1,9 +1,18 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
 import { Input } from "@/shared/ui/input";
 import { Card } from "@/shared/ui/card";
 import { useFavoritesStore } from "@/app/store/useFavoritesStore";
 import { BackButton } from "@/shared/ui/backButton";
 import { motion, AnimatePresence } from "framer-motion";
+
+const EditPageHeader = memo(function EditPageHeader() {
+  return (
+    <div className="shrink-0">
+      <BackButton />
+      <p className="mt-4 text-white text-h3 font-semibold">즐겨찾기 편집</p>
+    </div>
+  );
+});
 
 export default function FavoriteEditPage() {
   const favorites = useFavoritesStore((s) => s.favorites);
@@ -36,10 +45,7 @@ export default function FavoriteEditPage() {
 
   return (
     <div className="md:w-85 mx-auto md:mt-24 pb-24">
-      <div className="shrink-0">
-        <BackButton />
-        <p className="mt-4 text-white text-h3 font-semibold">즐겨찾기 편집</p>
-      </div>
+      <EditPageHeader />
 
       <div className="mt-6 flex flex-col gap-4">
         <AnimatePresence mode="popLayout">
