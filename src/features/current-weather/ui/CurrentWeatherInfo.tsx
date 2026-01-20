@@ -2,14 +2,19 @@ import { WeatherIcon } from "@/entities/weather/ui/weather-icon";
 import { FaLocationDot } from "react-icons/fa6";
 import type { CurrentWeatherData } from "../model/types";
 
-type Props = {
+interface Props {
   currentWeather: CurrentWeatherData;
-};
-export default function CurrentWeatherInfo({ currentWeather }: Props) {
+  showLocationIcon?: boolean;
+}
+
+export default function CurrentWeatherInfo({ 
+  currentWeather, 
+  showLocationIcon = true 
+}: Props) {
   return (
     <div className="flex flex-col justify-center items-center text-white mb-10">
       <div className="flex gap-0.5 items-center">
-        <FaLocationDot className="w-4 h-4 " />
+        {showLocationIcon && <FaLocationDot className="w-4 h-4 " />}
         <p className="text-h5 font-medium text-shadow-md">
           {currentWeather.locationName}
         </p>

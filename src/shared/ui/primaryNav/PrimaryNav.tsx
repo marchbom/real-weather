@@ -4,7 +4,7 @@ import { MapPin, List } from "lucide-react";
 export function PrimaryNav() {
   const { pathname } = useLocation();
 
-  const isWeather = pathname === "/";
+  const isWeather = pathname === "/" || pathname.startsWith("/favorites/");
   const isFavorites = pathname === "/favorites";
 
   return (

@@ -1,3 +1,4 @@
+import { normalizeAddressLabel } from "@/entities/address/lib/address";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -14,7 +15,6 @@ type State = {
   favorites: Favorite[];
   addFavorite: (fav: Favorite) => void;
   updateAlias: (id: string, alias: string | null) => void;
-
   removeFavorite: (id: string) => void;
 };
 
@@ -24,7 +24,11 @@ export const useFavoritesStore = create<State>()(
       favorites: [],
       addFavorite: (fav) =>
         set((state) => ({
-          favorites: [fav, ...state.favorites],
+          favorites: [
+            {...fav,    
+            label: normalizeAddressLabel(fav.label), 
+          }, 
+          ...state.favorites],
         })),
       updateAlias: (id, alias) =>
         set((state) => ({
@@ -37,6 +41,17 @@ export const useFavoritesStore = create<State>()(
           favorites: state.favorites.filter((f) => f.id !== id),
         })),
     }),
-    { name: "favorites-store" },
+    { 
+      name: "favorites-store",
+
+      onRehydrateStorage: () => (state) => {
+        if (state?.favorites) {
+          state.favorites = state.favorites.map(fav => ({
+            ...fav,
+            label: normalizeAddressLabel(fav.label)
+          }));
+        }
+      }
+    },
   ),
 );

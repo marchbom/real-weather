@@ -15,6 +15,7 @@ export default function FavoriteWeatherCard({
     favorite.lon,
   );
   const navigate = useNavigate();
+  
 
   if (isLoading) return <FavoriteWeatherCardSkeleton />;
   

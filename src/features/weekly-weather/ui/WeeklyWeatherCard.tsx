@@ -11,13 +11,11 @@ export default function WeeklyWeatherCard({ items }: Props) {
   return (
     <Card className="pt-4 pb-2 mt-2.5 text-white md:w-85">
       <div className="px-4">
-        {/* title */}
         <div className="flex items-center gap-2">
           <LuCalendar className="w-4 h-4" />
           <p className="text-caption2">7일간 일기예보</p>
         </div>
 
-        {/* rows */}
         <ul className="flex flex-col">
           {items.map((item, idx) => (
             <li key={`${item.dayLabel}-${idx}`}>

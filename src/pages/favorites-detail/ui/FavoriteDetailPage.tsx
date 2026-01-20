@@ -11,5 +11,10 @@ export default function FavoriteDetailPage() {
   if (!fav)
     return <div className="text-white">해당 즐겨찾기를 찾을 수 없음</div>;
 
-  return <WeatherDetailPage coords={{ lat: fav.lat, lon: fav.lon }} />;
+  return (
+    <WeatherDetailPage 
+      coords={{ lat: fav.lat, lon: fav.lon }}
+      locationName={fav.label}
+    />
+  );
 }

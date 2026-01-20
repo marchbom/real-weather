@@ -10,13 +10,18 @@ import { useWeatherStore } from "@/app/store/useWeatherStore";
 import { CurrentWeatherInfoSkeleton } from "@/features/current-weather/ui/CurrentWeatherInfoSkeleton";
 import { HourlyWeatherCardSkeleton } from "@/features/hourly-weather/ui/HourlyWeatherCardSkeleton";
 import { WeeklyWeatherCardSkeleton } from "@/features/weekly-weather/ui/WeeklyWeatherCardSkeleton";
+import { useLocation } from "react-router";
 
 type Coords = { lat: number; lon: number };
 
 type Props = {
   coords: Coords;
+  locationName?: string;
 };
-export default function WeatherDetailPage({ coords }: Props) {
+export default function WeatherDetailPage({ coords, locationName: providedLocationName }: Props) {
+  const location = useLocation();
+  const isCurrentLocation = location.pathname === "/";
+
   const {
     data: weatherData,
     isLoading: isWeatherLoading,
@@ -40,7 +45,7 @@ export default function WeatherDetailPage({ coords }: Props) {
   }, [weatherData, setBackgroundByMain]);
 
   // 로딩 상태
-  if (!coords || isWeatherLoading || isLocationLoading) {
+  if (!coords || isWeatherLoading || (isLocationLoading && !providedLocationName)) {
     return (
       <div className="md:mt-24">
         <CurrentWeatherInfoSkeleton />
@@ -66,6 +71,7 @@ export default function WeatherDetailPage({ coords }: Props) {
   if (locationError) console.warn(locationError);
 
   const locationName =
+    providedLocationName ??
     locationData?.[0]?.local_names?.ko ??
     locationData?.[0]?.name ??
     "현재 위치";
@@ -85,7 +91,10 @@ export default function WeatherDetailPage({ coords }: Props) {
   return (
     <div className="md:mt-24 ">
       <div>
-        <CurrentWeatherInfo currentWeather={currentWeather} />
+        <CurrentWeatherInfo 
+          currentWeather={currentWeather}
+          showLocationIcon={isCurrentLocation}
+        />
         <HourlyWeatherCard items={hourlyItems} />
         <WeeklyWeatherCard items={weeklyItems} />
       </div>
